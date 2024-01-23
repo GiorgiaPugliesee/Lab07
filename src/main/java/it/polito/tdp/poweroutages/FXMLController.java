@@ -39,6 +39,20 @@ public class FXMLController {
     @FXML
     void doRun(ActionEvent event) {
     	txtResult.clear();
+    	
+    	int years = 0; 
+    	int hours = 0;
+    	
+    	try {
+    		hours = Integer.parseInt(this.txtHours.getText());
+        	years = Integer.parseInt(this.txtYears.getText());
+    	} catch(NumberFormatException e) {
+    		this.txtResult.setText("Il valore inserito non è di tipo intero.");
+    		return;
+    	}
+    	
+    	Nerc nerc = this.cmbNerc.getValue();
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -49,10 +63,14 @@ public class FXMLController {
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
         
         // Utilizzare questo font per incolonnare correttamente i dati;
-        txtResult.setStyle("-fx-font-family: monospace");
+        txtResult.setStyle("-fx-font-family: monospace");   
     }
     
     public void setModel(Model model) {
     	this.model = model;
+    	
+    	 for(Nerc c : this.model.getNercList()) {
+         	this.cmbNerc.getItems().add(c);
+         }
     }
 }
